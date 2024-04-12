@@ -52,6 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
         subtitle: Row(
           children: [
             TextButton(
+              onPressed: () => _connectDevice(device),
+              child: Text(device.isConnected ? "Disconnect" : "Connect"),
+            ),
+            TextButton(
               onPressed: () => CommonUtils.navigate(
                 context,
                 ServicesScreen(device: device),
@@ -66,6 +70,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _connectDevice(BluetoothDevice device) async {
+    if (device.isConnected) {
+      await device.disconnect();
+      if (mounted) {
+        setState(() {});
+      }
+    } else {
+      await device.connect();
+      if (mounted) {
+        setState(() {});
+      }
+    }
   }
 
   void _startScanning() async {

@@ -36,8 +36,10 @@ class ServicesScreen extends StatelessWidget {
   }
 
   Widget _buildListItem(BluetoothService service) {
-    return ListTile(
-      title: Text(service.toString()),
+    return Card(
+      child: ListTile(
+        title: Text(service.serviceUuid.str),
+      ),
     );
   }
 }
