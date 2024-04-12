@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ble_sample/screens/services.dart';
+import 'package:flutter_ble_sample/util/common.dart';
 import 'package:flutter_ble_sample/util/constant.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -15,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    startScanning();
+    _startScanning();
   }
 
   @override
@@ -40,12 +42,33 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildListItem(BluetoothDevice device) {
     return Card(
       child: ListTile(
-        title: Text(device.remoteId.str),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: Text(
+            device.remoteId.str,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        subtitle: Row(
+          children: [
+            TextButton(
+              onPressed: () => CommonUtils.navigate(
+                context,
+                ServicesScreen(device: device),
+              ),
+              child: const Text("Services"),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text("Characteristics"),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  void startScanning() async {
+  void _startScanning() async {
     await FlutterBluePlus.adapterState
         .where((val) => val == BluetoothAdapterState.on)
         .first;
