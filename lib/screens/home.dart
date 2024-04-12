@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ble_sample/screens/characteristics.dart';
 import 'package:flutter_ble_sample/screens/services.dart';
 import 'package:flutter_ble_sample/util/common.dart';
 import 'package:flutter_ble_sample/util/constant.dart';
@@ -63,7 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text("Services"),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () => CommonUtils.navigate(
+                context,
+                CharacteristicScreen(device: device),
+              ),
               child: const Text("Characteristics"),
             ),
           ],
