@@ -34,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildBody() {
+    if (devices.isEmpty) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text("No devices found yet ..."),
+        ),
+      );
+    }
     return ListView.builder(
       itemCount: devices.length,
       itemBuilder: (context, index) => _buildListItem(devices[index]),
@@ -83,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {});
       }
     } else {
-      await device.connect();
+      await device.connect(license: License.free);
       if (mounted) {
         setState(() {});
       }
